@@ -9,7 +9,7 @@ const HomeScreen = () => {
         {/* Scrollable Content */}
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {/* Header */}
-          <View style={styles.header}>
+          {/* <View style={styles.header}>
             <Text style={styles.logo}>EcoWear</Text>
             <View style={styles.headerIcons}>
               <TouchableOpacity>
@@ -19,7 +19,7 @@ const HomeScreen = () => {
                 <Icon name="search" size={24} color="#fff" />
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
 
           {/* Categories */}
           <View style={styles.categories}>
@@ -52,7 +52,7 @@ const HomeScreen = () => {
         </ScrollView>
 
         {/* Bottom Navigation */}
-        <View style={styles.bottomNav}>
+        {/* <View style={styles.bottomNav}>
           <Icon name="home-outline" size={24} color="#333" />
           <Icon name="time-outline" size={24} color="#333" />
           <TouchableOpacity style={styles.scanButton}>
@@ -60,7 +60,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
           <Icon name="list-outline" size={24} color="#333" />
           <Icon name="person-outline" size={24} color="#333" />
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
-    backgroundColor: '#6B8E23',
+    // backgroundColor: '#6B8E23',
   },
   categoryCircle: {
     backgroundColor: '#8FBC8F',
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
-  categoryText: { color: '#fff', fontSize: 12, textAlign: 'center' },
+  categoryText: { color: '#fff', fontSize: 10, textAlign: 'center' },
   banner: {
     backgroundColor: '#556B2F',
     margin: 15,
