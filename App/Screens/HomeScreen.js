@@ -1,43 +1,52 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { LinearGradient } from 'expo-linear-gradient';
+import ProductCard from '../../Components/ProductCard';
 
 const HomeScreen = () => {
+  const categories = [
+    { name: 'Shirts', image: require('../Assets/polo-shirt.png') },
+    { name: 'T-shirts', image: require('../Assets/t-shirt.png') },
+    { name: 'Jeans', image: require('../Assets/trousers.png') },
+    { name: 'Hoodies', image: require('../Assets/hoodie.png') },
+    { name: 'Dresses', image: require('../Assets/dress.png') },
+  ];
+
+  // Sample product data
+const products = [
+  { id: 1, image: require('../Assets/pro1.webp'), title: 'Cotton Milk Knit Shirt' },
+  { id: 2, image: require('../Assets/pro3.webp'), title: 'Olive Airy Shirt' },
+  { id: 3, image: require('../Assets/pro4.webp'), title: 'Manoor Black Organic Cotton Dress' },
+  { id: 4, image: require('../Assets/pro5.webp'), title: 'Aara Green Print Dress' },
+];
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {/* Scrollable Content */}
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          {/* Header */}
-          {/* <View style={styles.header}>
-            <Text style={styles.logo}>EcoWear</Text>
-            <View style={styles.headerIcons}>
-              <TouchableOpacity>
-                <Icon name="add" size={24} color="#fff" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Icon name="search" size={24} color="#fff" />
-              </TouchableOpacity>
-            </View>
-          </View> */}
 
           {/* Categories */}
           <View style={styles.categories}>
-            {['Shirts', 'T-shirts', 'Jeans', 'Hoodies', 'Dresses'].map((category, index) => (
+            {categories.map((category, index) => (
               <TouchableOpacity key={index} style={styles.categoryCircle}>
-                <Text style={styles.categoryText}>{category}</Text>
+                <LinearGradient colors={['#34443D', '#67775E']} style={styles.categoryCircle}>
+                <Image source={category.image} style={styles.categoryImage} />
+                <Text style={styles.categoryText}>{category.name}</Text>
+                </LinearGradient>
               </TouchableOpacity>
             ))}
           </View>
 
           {/* Banner */}
-          <TouchableOpacity style={styles.banner}>
+          <LinearGradient colors={['#34443D', '#67775E']} style={styles.banner}>
             <Text style={styles.bannerText}>Be Aware, Choose EcoWear</Text>
-          </TouchableOpacity>
+          </LinearGradient>
+
 
           {/* Sponsored Wardrobe */}
           <Text style={styles.sectionTitle}>Our EcoFriendly Wardrobe</Text>
-          <View style={styles.sponsoredContainer}>
+          {/* <View style={styles.sponsoredContainer}>
             <Image source={require('../Assets/pro1.webp')} style={styles.sponsoredImage} />
             <Image source={require('../Assets/pro3.webp')} style={styles.sponsoredImage} />
           </View>
@@ -48,19 +57,14 @@ const HomeScreen = () => {
           <View style={styles.sponsoredContainer}>
             <Image source={require('../Assets/pro1.webp')} style={styles.sponsoredImage} />
             <Image source={require('../Assets/pro3.webp')} style={styles.sponsoredImage} />
-          </View>
+          </View> */}
+         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </ScrollView>
         </ScrollView>
 
-        {/* Bottom Navigation */}
-        {/* <View style={styles.bottomNav}>
-          <Icon name="home-outline" size={24} color="#333" />
-          <Icon name="time-outline" size={24} color="#333" />
-          <TouchableOpacity style={styles.scanButton}>
-            <Icon style={styles.scanIcon} name="barcode-outline" size={30} color="#333" />
-          </TouchableOpacity>
-          <Icon name="list-outline" size={24} color="#333" />
-          <Icon name="person-outline" size={24} color="#333" />
-        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -87,14 +91,22 @@ const styles = StyleSheet.create({
     padding: 10,
     // backgroundColor: '#6B8E23',
   },
+  categoryTouchable: {
+    borderRadius: 50,
+  },
   categoryCircle: {
-    backgroundColor: '#8FBC8F',
+    backgroundColor: '#60A917',
     borderRadius: 50,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
     width: 60,
     height: 60,
+  },
+  categoryImage: {
+    width: 25, // Set smaller width
+    height: 25, // Set smaller height
+    marginBottom: 5,
   },
   categoryText: { color: '#fff', fontSize: 10, textAlign: 'center' },
   banner: {
@@ -114,8 +126,13 @@ const styles = StyleSheet.create({
   },
   sponsoredContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 10,
+  },
+  horizontalScroll: {
+    paddingHorizontal: 10,
+    marginLeft:8
   },
   sponsoredImage: {
     width: 150,
