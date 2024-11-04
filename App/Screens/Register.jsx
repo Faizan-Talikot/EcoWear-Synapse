@@ -22,7 +22,7 @@ const Register = () => {
         password: password,
       };
       if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
-        fetch('http://192.168.0.102:5001/register', {
+        fetch('http://localhost:5001/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -229,7 +229,8 @@ const styles = StyleSheet.create({
     padding:30,
   },
   label1:{
-    fontSize:28,
+    fontSize:25,
+    fontWeight:'bold',
     color:'#EDF1D6',
     marginBottom:20,
   },
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'transparent',
     borderRadius: 25,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     marginVertical: 10,
     fontSize: 16,
     color: '#EDF1D6',

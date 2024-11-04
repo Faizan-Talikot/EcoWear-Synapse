@@ -148,10 +148,11 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   Maincontainer: {
-    flex: 2,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding:30,
+    height:'100%'
   },
  LogoContainer: {
     marginBottom: 20,

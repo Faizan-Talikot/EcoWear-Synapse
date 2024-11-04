@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -15,6 +15,8 @@ import CatalogScreen from './App/Screens/CatalogScreen';
 import ProfileScreen from './App/Screens/ProfileScreen';
 import PlusScreen from './App/Screens/PlusScreen';
 import SearchScreen from './App/Screens/SearchScreen';
+import LoginScreen from './App/Screens/LogIn';
+import Register from './App/Screens/Register';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -66,65 +68,72 @@ const BottomTabs = () => (
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style="light" backgroundColor="#34443D" />
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={BottomTabs}
-          options={({ navigation }) => ({
-            headerTitle: 'EcoWear',
-            headerTitleStyle: { color: '#fff', fontSize: 20, fontWeight: 'bold' },
-            headerBackground: () => (
-              <LinearGradient
-                colors={['#34443D', '#67775E']}
-                style={{ flex: 1 }}
-                start={{ x: 0.5, y: 0 }}
-                end={{ x: 0.5, y: 1 }}
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Plus')}>
-                <Icon name="add" size={24} color="#fff" style={{ marginRight: 15 }} />
-              </TouchableOpacity>
-            ),
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                <Icon name="search" size={24} color="#fff" style={{ marginLeft: 15 }} />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-        <Stack.Screen
-          name="Plus"
-          component={PlusScreen}
-          options={{
-            headerTitle: 'Plus',
-            headerTintColor: '#fff',
-            headerBackground: () => (
-              <LinearGradient
-                colors={['#34443D', '#67775E']}
-                style={StyleSheet.absoluteFillObject}
-              />
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="Search"
-          component={SearchScreen}
-          options={{
-            headerTitle: 'Search',
-            headerTintColor: '#fff',
-            headerBackground: () => (
-              <LinearGradient
-                colors={['#34443D', '#67775E']}
-                style={StyleSheet.absoluteFillObject}
-              />
-            ),
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <StatusBar style="light" backgroundColor="#34443D" />
+    //   <Stack.Navigator>
+    //     <Stack.Screen
+    //       name="Main"
+    //       component={BottomTabs}
+    //       options={({ navigation }) => ({
+    //         headerTitle: () => null, // No title since we have a custom logo
+    //         headerLeft: () => (
+    //           <Image
+    //             source={require('./App/Assets/logo.png')} 
+    //             style={{ width: 120, height: 50, marginLeft: -10 }} 
+    //           />
+    //         ),
+    //         headerRight: () => (
+    //           <View style={styles.headerIcons}>
+    //             <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+    //               <Icon name="search" size={24} color="#fff" style={{ marginRight: 15 }} />
+    //             </TouchableOpacity>
+    //             <TouchableOpacity onPress={() => navigation.navigate('Plus')}>
+    //               <Icon name="add" size={28} color="#fff" style={{ marginRight: 15 }} />
+    //             </TouchableOpacity>
+    //           </View>
+    //         ),
+    //         headerBackground: () => (
+    //           <LinearGradient
+    //             colors={['#34443D', '#67775E']}
+    //             style={{ flex: 1 }}
+    //             start={{ x: 0.5, y: 0 }}
+    //             end={{ x: 0.5, y: 1 }}
+    //           />
+    //         ),
+    //       })}
+    //     />
+    //     <Stack.Screen
+    //       name="Plus"
+    //       component={PlusScreen}
+    //       options={{
+    //         headerTitle: 'Plus',
+    //         headerTintColor: '#fff',
+    //         headerBackground: () => (
+    //           <LinearGradient
+    //             colors={['#34443D', '#67775E']}
+    //             style={StyleSheet.absoluteFillObject}
+    //           />
+    //         ),
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="Search"
+    //       component={SearchScreen}
+    //       options={{
+    //         headerTitle: 'Search',
+    //         headerTintColor: '#fff',
+    //         headerBackground: () => (
+    //           <LinearGradient
+    //             colors={['#34443D', '#67775E']}
+    //             style={StyleSheet.absoluteFillObject}
+    //           />
+    //         ),
+    //       }}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    // <View><LoginScreen/></View>
+    <View><Register/></View>
   );
 }
 
@@ -132,5 +141,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  headerIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

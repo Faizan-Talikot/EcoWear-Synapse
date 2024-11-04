@@ -46,18 +46,6 @@ const products = [
 
           {/* Sponsored Wardrobe */}
           <Text style={styles.sectionTitle}>Our EcoFriendly Wardrobe</Text>
-          {/* <View style={styles.sponsoredContainer}>
-            <Image source={require('../Assets/pro1.webp')} style={styles.sponsoredImage} />
-            <Image source={require('../Assets/pro3.webp')} style={styles.sponsoredImage} />
-          </View>
-          <View style={styles.sponsoredContainer}>
-            <Image source={require('../Assets/pro1.webp')} style={styles.sponsoredImage} />
-            <Image source={require('../Assets/pro3.webp')} style={styles.sponsoredImage} />
-          </View>
-          <View style={styles.sponsoredContainer}>
-            <Image source={require('../Assets/pro1.webp')} style={styles.sponsoredImage} />
-            <Image source={require('../Assets/pro3.webp')} style={styles.sponsoredImage} />
-          </View> */}
          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
