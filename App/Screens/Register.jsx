@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView,Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 const Register = () => {
+  const navigation = useNavigation();
     const [name, setName] = useState('');
     const [nameVerify, setNameVerify] = useState(false);
     const [email, setEmail] = useState('');
@@ -33,6 +35,7 @@ const Register = () => {
         .then(data => {
           if (data.status === "ok") {
             Alert.alert('Success', 'User registered successfully!');
+            navigation.navigate("Login");
           } else {
             Alert.alert('Error', data.data || 'Registration failed');
           }

@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } fro
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = () => {
+const LoginScreen = ({ onLoginSuccess }) => {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +25,7 @@ const LoginScreen = () => {
     .then(data => {
       if (data.status === "ok") {
         Alert.alert('Success', 'Login successful!');
-        navigation("Main")
+        onLoginSuccess(); // Call the success function passed as a prop
       } else {
         Alert.alert('Error', 'Invalid credentials');
       }
@@ -132,9 +132,12 @@ const LoginScreen = () => {
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>LOGIN</Text>
         </TouchableOpacity>
-        <Text style={styles.newUserText}>
-         --- Or Continue by ---
-        </Text>
+        
+         <TouchableOpacity>
+          <Text style={styles.newUserText} onPress={()=>navigation.navigate("Register")}>Don't have an account? 
+          <Text style={styles.registertext}> Register</Text></Text>
+          </TouchableOpacity>
+        
         <TouchableOpacity style={styles.registerButton}
         onPress={
             () =>{
@@ -304,9 +307,13 @@ const styles = StyleSheet.create({
     marginBottom:-400,
     transform: [{ rotate: '-30deg' }]
   },
-  IconsContainer:{
-
+  newUserText:{
+    fontSize:15,
+    marginTop:15
   },
+  registertext:{
+    color:'blue'
+  }
 
 });
 

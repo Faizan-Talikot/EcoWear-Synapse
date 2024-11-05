@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -53,8 +53,8 @@ const BottomTabs = () => (
         />
       ),
       tabBarStyle: {
-        backgroundColor: 'transparent', // Transparent to show the gradient
-        borderTopWidth: 0, // Remove the border to avoid overlapping the gradient
+        backgroundColor: 'transparent',
+        borderTopWidth: 0,
       },
     })}
   >
@@ -63,47 +63,63 @@ const BottomTabs = () => (
     <Tab.Screen name="Scan" component={ScanScreen} />
     <Tab.Screen name="Catalog" component={CatalogScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
-    <Tab.Screen name="LoginScreen" component={LoginScreen}/> 
-    <Tab.Screen name="Register" component={Register}/> 
   </Tab.Navigator>
 );
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
   return (
     <NavigationContainer>
       <StatusBar style="light" backgroundColor="#34443D" />
       <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={BottomTabs}
-          options={({ navigation }) => ({
-            headerTitle: () => null, // No title since we have a custom logo
-            headerLeft: () => (
-              <Image
-                source={require('./App/Assets/logo.png')} 
-                style={{ width: 120, height: 50, marginLeft: -10 }} 
-              />
-            ),
-            headerRight: () => (
-              <View style={styles.headerIcons}>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                  <Icon name="search" size={24} color="#fff" style={{ marginRight: 15 }} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Plus')}>
-                  <Icon name="add" size={28} color="#fff" style={{ marginRight: 15 }} />
-                </TouchableOpacity>
-              </View>
-            ),
-            headerBackground: () => (
-              <LinearGradient
-                colors={['#34443D', '#67775E']}
-                style={{ flex: 1 }}
-                start={{ x: 0.5, y: 0 }}
-                end={{ x: 0.5, y: 1 }}
-              />
-            ),
-          })}
-        />
+        {/* Show LoginScreen if not logged in */}
+        {isLoggedIn ? (
+          <Stack.Screen
+            name="Main"
+            component={BottomTabs}
+            options={({ navigation }) => ({
+              headerTitle: () => null,
+              headerLeft: () => (
+                <Image
+                  source={require('./App/Assets/logo.png')} 
+                  style={{ width: 120, height: 50, marginLeft: -10 }} 
+                />
+              ),
+              headerRight: () => (
+                <View style={styles.headerIcons}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+                    <Icon name="search" size={24} color="#fff" style={{ marginRight: 15 }} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigation.navigate('Plus')}>
+                    <Icon name="add" size={28} color="#fff" style={{ marginRight: 15 }} />
+                  </TouchableOpacity>
+                </View>
+              ),
+              headerBackground: () => (
+                <LinearGradient
+                  colors={['#34443D', '#67775E']}
+                  style={{ flex: 1 }}
+                  start={{ x: 0.5, y: 0 }}
+                  end={{ x: 0.5, y: 1 }}
+                />
+              ),
+            })}
+          />
+        ) : (
+          <Stack.Screen 
+            name="Login" 
+            options={{ headerShown: false }} // Hide header for login
+          >
+            {() => <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />} 
+          </Stack.Screen>
+        )}
+        {/* Register screen must be outside of the login condition */}
+        <Stack.Screen 
+            name="Register" 
+            component={Register} 
+            options={{ headerShown: false }} 
+          />
         <Stack.Screen
           name="Plus"
           component={PlusScreen}
@@ -134,8 +150,6 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    // <View><LoginScreen/></View>
-    // <View><Register/></View>
   );
 }
 
