@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import screens
 import HomeScreen from './App/Screens/HomeScreen';
@@ -68,6 +69,15 @@ const BottomTabs = () => (
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
+  async function getData(){
+    const data = await AsyncStorage.getItem('isLoggedIn')
+    setIsLoggedIn(data)
+  }
+
+  useEffect(()=>{
+    getData();
+  },[])
 
   return (
     <NavigationContainer>

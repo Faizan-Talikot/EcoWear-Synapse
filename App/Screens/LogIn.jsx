@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ onLoginSuccess }) => {
   const navigation = useNavigation();
@@ -25,6 +26,8 @@ const LoginScreen = ({ onLoginSuccess }) => {
     .then(data => {
       if (data.status === "ok") {
         Alert.alert('Success', 'Login successful!');
+        AsyncStorage.setItem('token',data.data);
+        AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
         onLoginSuccess(); // Call the success function passed as a prop
       } else {
         Alert.alert('Error', 'Invalid credentials');

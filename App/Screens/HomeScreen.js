@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import ProductCard from '../../Components/ProductCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
   const categories = [
@@ -20,6 +21,9 @@ const products = [
   { id: 3, image: require('../Assets/pro4.webp'), title: 'Manoor Black Organic Cotton Dress' },
   { id: 4, image: require('../Assets/pro5.webp'), title: 'Aara Green Print Dress' },
 ];
+
+
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
