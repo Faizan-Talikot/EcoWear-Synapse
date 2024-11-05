@@ -22,7 +22,7 @@ const Register = () => {
         password: password,
       };
       if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
-        fetch('http://localhost:5001/register', {
+        fetch('http://192.168.85.67:5001/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -101,8 +101,8 @@ const Register = () => {
       <View style={styles.InputContainer}>
             <Text style={styles.label1}>Create An EcoWear Account</Text>
         <View style = {styles.Imageinput}>
-        <FontAwesome name="user-plus" color="#EDF1D6"
-        style={styles.icon}/>
+        <FontAwesome name="user-o" color="#EDF1D6"
+        style={styles.icon1}/>
         <TextInput
           style={styles.input}
           placeholder="USERNAME"
@@ -129,7 +129,7 @@ const Register = () => {
 
         <View style = {styles.Imageinput}>
         <FontAwesome name="envelope" color="#EDF1D6"
-        style={styles.icon}/>
+        style={styles.icon2}/>
         <TextInput
           style={styles.input}
           placeholder="EMAIL ID"
@@ -154,7 +154,7 @@ const Register = () => {
 
               <View style = {styles.Imageinput}>
               <FontAwesome name="mobile-phone" color="#EDF1D6"
-              style={styles.icon}/>
+              style={styles.icon3}/>
               <TextInput
                 style={styles.input}
                 placeholder="MOBILE/PHONE NO."
@@ -180,7 +180,7 @@ const Register = () => {
 
         <View style = {styles.Imageinput}>
         <FontAwesome name="lock" color="#EDF1D6"
-        style={styles.icon}/>
+        style={styles.icon4}/>
         <TextInput
           style={styles.input}
           placeholder="PASSWORD"
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding:30,
+    minHeight:838
   },
   label1:{
     fontSize:25,
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
   InputContainer:{
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop:60,
+    marginTop:60
   },
 
   MainImage:{
@@ -250,15 +251,13 @@ const styles = StyleSheet.create({
   },
     
   input: {
-    width: 300,
-    paddingRight: 100,
+    flex: 1, // Allow input to take remaining space
     height: 50,
     backgroundColor: 'transparent',
     borderRadius: 25,
-    // paddingHorizontal: 20,
-    marginVertical: 10,
     fontSize: 16,
     color: '#EDF1D6',
+    borderWidth: 0, // Remove border on input itself since it's on the container
   },
 
   signsicon:{
@@ -281,18 +280,44 @@ const styles = StyleSheet.create({
     color: '#EDF1D6',
   },
 
-  icon: {
-    fontSize:30,
+  icon1: {
+    fontSize:20,
     width: 30,
     height: 30,
     marginleft: 10,
+    marginTop:10
   },
-  Imageinput:{
+  icon2: {
+    fontSize:20,
+    width: 30,
+    height: 30,
+    marginleft: 10,
+    marginTop:8
+  },
+  icon3: {
+    fontSize:30,
+    width: 30,
+    height: 30,
+    paddingLeft:5
+  },
+  icon4: {
+    fontSize:25,
+    width: 30,
+    height: 30,
+    marginTop:6,
+    paddingLeft:4
+  },
+  Imageinput: {
+    width: '95%', // Set a percentage width to keep it responsive but less than full width
+    alignSelf: 'center', // Center the input within the container
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 25,
+    borderRadius: 30,
     paddingHorizontal: 20,
-    marginVertical: 0,
+    marginVertical: 10, // Add vertical margin for spacing between inputs
+    borderWidth: 1,
+    borderColor: '#EDF1D6',
+    overflow: 'hidden',
   },
 
 });

@@ -63,77 +63,79 @@ const BottomTabs = () => (
     <Tab.Screen name="Scan" component={ScanScreen} />
     <Tab.Screen name="Catalog" component={CatalogScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
+    <Tab.Screen name="LoginScreen" component={LoginScreen}/> 
+    <Tab.Screen name="Register" component={Register}/> 
   </Tab.Navigator>
 );
 
 export default function App() {
   return (
-    // <NavigationContainer>
-    //   <StatusBar style="light" backgroundColor="#34443D" />
-    //   <Stack.Navigator>
-    //     <Stack.Screen
-    //       name="Main"
-    //       component={BottomTabs}
-    //       options={({ navigation }) => ({
-    //         headerTitle: () => null, // No title since we have a custom logo
-    //         headerLeft: () => (
-    //           <Image
-    //             source={require('./App/Assets/logo.png')} 
-    //             style={{ width: 120, height: 50, marginLeft: -10 }} 
-    //           />
-    //         ),
-    //         headerRight: () => (
-    //           <View style={styles.headerIcons}>
-    //             <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-    //               <Icon name="search" size={24} color="#fff" style={{ marginRight: 15 }} />
-    //             </TouchableOpacity>
-    //             <TouchableOpacity onPress={() => navigation.navigate('Plus')}>
-    //               <Icon name="add" size={28} color="#fff" style={{ marginRight: 15 }} />
-    //             </TouchableOpacity>
-    //           </View>
-    //         ),
-    //         headerBackground: () => (
-    //           <LinearGradient
-    //             colors={['#34443D', '#67775E']}
-    //             style={{ flex: 1 }}
-    //             start={{ x: 0.5, y: 0 }}
-    //             end={{ x: 0.5, y: 1 }}
-    //           />
-    //         ),
-    //       })}
-    //     />
-    //     <Stack.Screen
-    //       name="Plus"
-    //       component={PlusScreen}
-    //       options={{
-    //         headerTitle: 'Plus',
-    //         headerTintColor: '#fff',
-    //         headerBackground: () => (
-    //           <LinearGradient
-    //             colors={['#34443D', '#67775E']}
-    //             style={StyleSheet.absoluteFillObject}
-    //           />
-    //         ),
-    //       }}
-    //     />
-    //     <Stack.Screen
-    //       name="Search"
-    //       component={SearchScreen}
-    //       options={{
-    //         headerTitle: 'Search',
-    //         headerTintColor: '#fff',
-    //         headerBackground: () => (
-    //           <LinearGradient
-    //             colors={['#34443D', '#67775E']}
-    //             style={StyleSheet.absoluteFillObject}
-    //           />
-    //         ),
-    //       }}
-    //     />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <StatusBar style="light" backgroundColor="#34443D" />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={BottomTabs}
+          options={({ navigation }) => ({
+            headerTitle: () => null, // No title since we have a custom logo
+            headerLeft: () => (
+              <Image
+                source={require('./App/Assets/logo.png')} 
+                style={{ width: 120, height: 50, marginLeft: -10 }} 
+              />
+            ),
+            headerRight: () => (
+              <View style={styles.headerIcons}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+                  <Icon name="search" size={24} color="#fff" style={{ marginRight: 15 }} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Plus')}>
+                  <Icon name="add" size={28} color="#fff" style={{ marginRight: 15 }} />
+                </TouchableOpacity>
+              </View>
+            ),
+            headerBackground: () => (
+              <LinearGradient
+                colors={['#34443D', '#67775E']}
+                style={{ flex: 1 }}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Plus"
+          component={PlusScreen}
+          options={{
+            headerTitle: 'Plus',
+            headerTintColor: '#fff',
+            headerBackground: () => (
+              <LinearGradient
+                colors={['#34443D', '#67775E']}
+                style={StyleSheet.absoluteFillObject}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            headerTitle: 'Search',
+            headerTintColor: '#fff',
+            headerBackground: () => (
+              <LinearGradient
+                colors={['#34443D', '#67775E']}
+                style={StyleSheet.absoluteFillObject}
+              />
+            ),
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
     // <View><LoginScreen/></View>
-    <View><Register/></View>
+    // <View><Register/></View>
   );
 }
 

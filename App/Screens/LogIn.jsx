@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,7 +14,7 @@ const LoginScreen = () => {
       password: password,
     };
   
-    fetch('http://192.168.0.102:5001/login', {
+    fetch('http://192.168.85.67:5001/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,6 +25,7 @@ const LoginScreen = () => {
     .then(data => {
       if (data.status === "ok") {
         Alert.alert('Success', 'Login successful!');
+        navigation("Main")
       } else {
         Alert.alert('Error', 'Invalid credentials');
       }
