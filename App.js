@@ -22,7 +22,7 @@ import Register from './App/Screens/Register';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const BottomTabs = () => (
+const BottomTabs = ({ onLogoutSuccess }) => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
@@ -63,37 +63,37 @@ const BottomTabs = () => (
     <Tab.Screen name="History" component={HistoryScreen} />
     <Tab.Screen name="Scan" component={ScanScreen} />
     <Tab.Screen name="Catalog" component={CatalogScreen} />
-    <Tab.Screen name="Profile" component={ProfileScreen} />
+    <Tab.Screen name="Profile">
+      {() => <ProfileScreen onLogoutSuccess={onLogoutSuccess} />}
+    </Tab.Screen>
   </Tab.Navigator>
 );
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  async function getData(){
-    const data = await AsyncStorage.getItem('isLoggedIn')
-    setIsLoggedIn(data)
+  async function getData() {
+    const data = await AsyncStorage.getItem('isLoggedIn');
+    setIsLoggedIn(data);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-  },[])
+  }, []);
 
   return (
     <NavigationContainer>
       <StatusBar style="light" backgroundColor="#34443D" />
       <Stack.Navigator>
-        {/* Show LoginScreen if not logged in */}
         {isLoggedIn ? (
           <Stack.Screen
             name="Main"
-            component={BottomTabs}
             options={({ navigation }) => ({
               headerTitle: () => null,
               headerLeft: () => (
                 <Image
-                  source={require('./App/Assets/logo.png')} 
-                  style={{ width: 120, height: 50, marginLeft: -10 }} 
+                  source={require('./App/Assets/logo.png')}
+                  style={{ width: 120, height: 50, marginLeft: -10 }}
                 />
               ),
               headerRight: () => (
@@ -115,21 +115,22 @@ export default function App() {
                 />
               ),
             })}
-          />
-        ) : (
-          <Stack.Screen 
-            name="Login" 
-            options={{ headerShown: false }} // Hide header for login
           >
-            {() => <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />} 
+            {() => <BottomTabs onLogoutSuccess={() => setIsLoggedIn(false)} />}
+          </Stack.Screen>
+        ) : (
+          <Stack.Screen
+            name="Login"
+            options={{ headerShown: false }}
+          >
+            {() => <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />}
           </Stack.Screen>
         )}
-        {/* Register screen must be outside of the login condition */}
-        <Stack.Screen 
-            name="Register" 
-            component={Register} 
-            options={{ headerShown: false }} 
-          />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Plus"
           component={PlusScreen}

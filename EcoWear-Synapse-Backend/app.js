@@ -58,7 +58,7 @@ app.post('/login', async (req, res) => {
   const user = await User.findOne({ name: name, password: password });
   if (user) {
     const token =  jwt.sign({email:user.email},JWT_SECRET);
-    console.log("token generated",token)
+    // console.log("token generated",token)
     if(res.status(201)){
       return res.send({ status: "ok", data: token });
     }

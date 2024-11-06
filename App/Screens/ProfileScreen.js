@@ -9,14 +9,14 @@ import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
-function ProfileScreen(props) {
+function ProfileScreen({onLogoutSuccess}) {
   const navigation = useNavigation();
   const [userData, setUserData] = useState('');
 
   function handleSignOut(){
-    // AsyncStorage.setItem('isLoggedIn','')
-    // AsyncStorage.setItem('token','')
-    // // navigation.navigate("Login")
+    AsyncStorage.setItem('isLoggedIn','')
+    AsyncStorage.setItem('token','')
+    // navigation.navigate("Login")
     // navigation.navigate('Main', {
     //   screen: 'Login',  // First specify the nested stack name
     //   params: {
@@ -24,6 +24,7 @@ function ProfileScreen(props) {
     //     params: { /* other params */ },
     //   },
     // });
+    onLogoutSuccess();
   }
 
   useEffect(() => {
