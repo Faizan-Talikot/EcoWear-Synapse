@@ -18,6 +18,7 @@ import PlusScreen from './App/Screens/PlusScreen';
 import SearchScreen from './App/Screens/SearchScreen';
 import LoginScreen from './App/Screens/LogIn';
 import Register from './App/Screens/Register';
+import FabricInfo from './App/Screens/FabricInfo';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -159,6 +160,20 @@ export default function App() {
             ),
           }}
         />
+        <Stack.Screen
+  name="FabricInfo"
+  component={FabricInfo}
+  options={{
+    headerTitle: 'Fabric Information',
+    headerTintColor: '#fff',
+    headerBackground: () => (
+      <LinearGradient
+        colors={['#34443D', '#67775E']}
+        style={StyleSheet.absoluteFillObject}
+      />
+    ),
+  }}
+/>
       </Stack.Navigator>
     </NavigationContainer>
   );

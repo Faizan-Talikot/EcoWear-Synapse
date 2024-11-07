@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { CameraView, Camera } from "expo-camera";
+import { useNavigation } from '@react-navigation/native';
 
 export default function ScanScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const getCameraPermissions = async () => {
@@ -17,7 +19,10 @@ export default function ScanScreen() {
 
   const handleBarcodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    
+    // Navigate to FabricInfo page
+    navigation.navigate("FabricInfo", { type, data });
   };
 
   if (hasPermission === null) {

@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
 
     fontStyle: 'normal',
-    fontFamily: 'Open Sans',
     fontWeight: 'bold',
     textAlign: 'center',
   },

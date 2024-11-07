@@ -32,6 +32,7 @@ const barcodeDataSchema = new mongoose.Schema({
   fabric: String,
   barcode_id: String,
   sustainability_score: String,
+  sustainability_details:String,
   details: {
     fabric_type_impact: String,
     brand_sustainability_rating: String,
@@ -42,17 +43,23 @@ const barcodeDataSchema = new mongoose.Schema({
     alternative_suggestions: String
   }
 });
-const BarcodeData = mongoose.model("BarcodeData", barcodeDataSchema);
+const BarcodeData = mongoose.model("barcodedatas", barcodeDataSchema);
 
-// Endpoint to fetch BarcodeData
-app.get('/api/barcode-data', async (req, res) => {
+// Endpoint to fetch data based on barcode_id
+app.get('/api/barcode-data/:barcode_id', async (req, res) => {
+  const { barcode_id } = req.params; // Extract barcode_id from URL params
+
   try {
-    const data = await BarcodeData.find();
-    res.json(data);
+    const data = await BarcodeData.findOne({ barcode_id: barcode_id });
+    if (!data) {
+      return res.status(404).send({ status: "error", message: "Barcode not found" });
+    }
+    res.json(data); // Send the barcode data back to the frontend
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send({ status: "error", message: err.message });
   }
 });
+
 
 //register
 app.post('/register', async (req, res) => {
