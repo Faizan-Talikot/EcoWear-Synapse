@@ -28,6 +28,31 @@ app.get("/", (req, res) => {
 app.get('/register', (req, res) => {
   res.send({ status: "register endpoint ready" });
 });
+const barcodeDataSchema = new mongoose.Schema({
+  fabric: String,
+  barcode_id: String,
+  sustainability_score: String,
+  details: {
+    fabric_type_impact: String,
+    brand_sustainability_rating: String,
+    carbon_footprint: String,
+    water_usage: String,
+    certifications_labels: String,
+    recycling_disposal: String,
+    alternative_suggestions: String
+  }
+});
+const BarcodeData = mongoose.model("BarcodeData", barcodeDataSchema);
+
+// Endpoint to fetch BarcodeData
+app.get('/api/barcode-data', async (req, res) => {
+  try {
+    const data = await BarcodeData.find();
+    res.json(data);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 //register
 app.post('/register', async (req, res) => {
