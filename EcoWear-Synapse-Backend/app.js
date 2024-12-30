@@ -106,6 +106,7 @@ app.post("/userdata", async(req,res) =>{
     const userEmail = user.email;
 
     User.findOne({email: userEmail}).then((data)=>{
+      console.log(data)
       return res.send({status:"ok",data:data})
     });
   }catch(error){

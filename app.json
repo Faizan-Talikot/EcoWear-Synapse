@@ -17,10 +17,17 @@
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": ["INTERNET"],
+      "package": "com.faizan424.EcoWear"
     },
     "web": {
       "favicon": ""
+    },
+    "extra": {
+      "eas": {
+        "projectId": "402d0418-aedb-42a4-939b-1c14d8753e54"
+      }
     }
   }
 }

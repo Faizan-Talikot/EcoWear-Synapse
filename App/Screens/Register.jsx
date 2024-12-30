@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView,
 import { LinearGradient } from 'expo-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import {API_BASE_URL} from '@env'
 
 const Register = () => {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ const Register = () => {
         password: password,
       };
       if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
-        fetch('http://192.168.85.67:5001/register', {
+        fetch(`${API_BASE_URL}/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

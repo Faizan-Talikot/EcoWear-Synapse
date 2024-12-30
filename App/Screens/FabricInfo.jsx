@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import axios from 'axios';
+import {API_BASE_URL} from '@env'
 
 const FabricInfo = ({ route }) => {
   const [barcodeData, setBarcodeData] = useState(null); // Changed to null since we are expecting a single object
@@ -9,7 +10,7 @@ const FabricInfo = ({ route }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.85.67:5001/api/barcode-data/${data}`);
+        const response = await axios.get(`${API_BASE_URL}/api/barcode-data/${data}`);
           
         if (response.status === 200 && response.data) {
           setBarcodeData(response.data);

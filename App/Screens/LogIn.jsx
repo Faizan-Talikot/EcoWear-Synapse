@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } fro
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {API_BASE_URL} from '@env'
 
 const LoginScreen = ({ onLoginSuccess }) => {
   const navigation = useNavigation();
@@ -15,7 +16,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       password: password,
     };
   
-    fetch('http://192.168.85.67:5001/login', {
+    fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
