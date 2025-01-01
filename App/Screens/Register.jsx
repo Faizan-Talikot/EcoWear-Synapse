@@ -18,6 +18,7 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     function handleSubmit(){
+      console.log("Register",API_BASE_URL)
       const userData = {
         name: name,
         email: email,
@@ -25,7 +26,7 @@ const Register = () => {
         password: password,
       };
       if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
-        fetch(`${API_BASE_URL}/register`, {
+        fetch(`https://62f5-103-147-175-230.ngrok-free.app/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

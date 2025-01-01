@@ -29,9 +29,10 @@ function ProfileScreen({onLogoutSuccess}) {
   }
 
   useEffect(() => {
+    console.log(API_BASE_URL)
     const fetchData = async () => {
       const token = await AsyncStorage.getItem('token');
-      fetch(`${API_BASE_URL}/userdata`, {
+      fetch(`https://62f5-103-147-175-230.ngrok-free.app/userdata`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,9 +8,10 @@ const FabricInfo = ({ route }) => {
   const { data } = route.params; // The barcode data
 
   useEffect(() => {
+    console.log(API_BASE_URL)
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/barcode-data/${data}`);
+        const response = await axios.get(`https://62f5-103-147-175-230.ngrok-free.app/api/barcode-data/${data}`);
           
         if (response.status === 200 && response.data) {
           setBarcodeData(response.data);

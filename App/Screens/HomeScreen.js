@@ -4,8 +4,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import ProductCard from '../../Components/ProductCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BlogCard from '../../Components/BlogCard';
+import blogs from '../../Components/blogs.json'
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const categories = [
     { name: 'Shirts', image: require('../Assets/polo-shirt.png') },
     { name: 'T-shirts', image: require('../Assets/t-shirt.png') },
@@ -52,8 +56,19 @@ const products = [
           <Text style={styles.sectionTitle}>Our EcoFriendly Wardrobe</Text>
          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onPress={()=>{}}/>
             ))}
+          </ScrollView>
+
+          <Text style={styles.sectionTitle}>EcoWear Blog: Your Fashion Guide</Text>
+         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+         {blogs.map((blog) => (
+            <BlogCard
+            key={blog.id}
+            blog={blog}
+            onPress={() => navigation.navigate('BlogDetails', { blog })}
+          />
+          ))}
           </ScrollView>
         </ScrollView>
 
@@ -151,6 +166,9 @@ const styles = StyleSheet.create({
   scanIcon: {
     padding: 3,
   },
+  blogscontainer:{
+    
+  }
 });
 
 export default HomeScreen;

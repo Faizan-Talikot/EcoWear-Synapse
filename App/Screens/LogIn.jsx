@@ -11,12 +11,13 @@ const LoginScreen = ({ onLoginSuccess }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
+    console.log(API_BASE_URL)
     const userData = {
       name: name,
       password: password,
     };
   
-    fetch(`${API_BASE_URL}/login`, {
+    fetch(`https://62f5-103-147-175-230.ngrok-free.app/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

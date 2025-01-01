@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BlogDetailsScreen from './App/Screens/BlogDetailsScreen';
 
 // Import screens
 import HomeScreen from './App/Screens/HomeScreen';
@@ -173,6 +174,11 @@ export default function App() {
       />
     ),
   }}
+/>
+<Stack.Screen
+  name="BlogDetails"
+  component={BlogDetailsScreen}
+  options={{ title: 'Blog Details' }}
 />
       </Stack.Navigator>
     </NavigationContainer>
