@@ -11,7 +11,7 @@ const FabricInfo = ({ route }) => {
     console.log(API_BASE_URL)
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://62f5-103-147-175-230.ngrok-free.app/api/barcode-data/${data}`);
+        const response = await axios.get(`https://5b6b-2409-4080-1096-b548-98c9-6638-7728-7a7.ngrok-free.app/api/barcode-data/${data}`);
           
         if (response.status === 200 && response.data) {
           setBarcodeData(response.data);
