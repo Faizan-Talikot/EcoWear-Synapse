@@ -2,28 +2,82 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import axios from 'axios';
 import {BASE_URL} from '../../env'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FabricInfo = ({ route }) => {
   const [barcodeData, setBarcodeData] = useState(null); // Changed to null since we are expecting a single object
   const { data } = route.params; // The barcode data
+  const [userData, setUserData] = useState('');
+
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!userData || !userData.email) {
+        return;
+      }
+    
       try {
         const response = await axios.get(`${BASE_URL}/api/barcode-data/${data}`);
-          
+    
         if (response.status === 200 && response.data) {
-          setBarcodeData(response.data);
+          const fetchedData = response.data; // ✅ store in a variable
+          setBarcodeData(fetchedData);
+    
+          // ✅ Use the fetchedData directly instead of waiting for state update
+          await axios.post(`${BASE_URL}/add`, {
+            user: userData.email,
+            type: fetchedData.fabric,
+            barcode_id: fetchedData.barcode_id,
+            score: fetchedData.sustainability_score,
+            ecoFriendly: true
+          });
         } else {
           console.error('Error: Received invalid response data');
         }
       } catch (error) {
         console.error('Error fetching the data', error.response || error.message);
       }
-    };
+    };    
   
     fetchData();
-  }, [data]);
+  }, [data, userData]);
+  
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+
+  
+        if (!token) {
+          console.warn("No token found in storage.");
+          return;
+        }
+  
+        const response = await fetch(`${BASE_URL}/userdata`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token }),
+        });
+  
+        const json = await response.json();
+
+  
+        if (json.data) {
+          setUserData(json.data);
+        } else {
+          console.warn("User data not found in response.");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
   
 
   const getSustainabilityColor = (score) => {
