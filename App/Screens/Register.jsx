@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView,
 import { LinearGradient } from 'expo-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import {API_BASE_URL} from '@env'
+import {BASE_URL} from '../../env'
 
 const Register = () => {
   const navigation = useNavigation();
@@ -18,7 +18,6 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     function handleSubmit(){
-      console.log("Register",API_BASE_URL)
       const userData = {
         name: name,
         email: email,
@@ -26,7 +25,7 @@ const Register = () => {
         password: password,
       };
       if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
-        fetch(`https://5b6b-2409-4080-1096-b548-98c9-6638-7728-7a7.ngrok-free.app/register`, {
+        fetch(`${BASE_URL}/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

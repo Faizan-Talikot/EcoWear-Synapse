@@ -89,15 +89,14 @@ app.post('/login', async (req, res) => {
 
   const user = await User.findOne({ name: name, password: password });
   if (user) {
-    const token =  jwt.sign({email:user.email},JWT_SECRET);
-    // console.log("token generated",token)
-    if(res.status(201)){
-      return res.send({ status: "ok", data: token });
-    }
+    const token = jwt.sign({ email: user.email }, JWT_SECRET);
+
+    return res.status(200).send({ status: "ok", data: token }); // ✅ success
   } else {
-    return res.send({ status: "error", data: "Invalid credentials" });
+    return res.status(401).send({ status: "error", data: "Invalid credentials" }); // ❌ invalid
   }
 });
+
 
 app.post("/userdata", async(req,res) =>{
   const {token} = req.body;

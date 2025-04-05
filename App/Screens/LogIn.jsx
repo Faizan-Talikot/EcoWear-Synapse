@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } fro
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {API_BASE_URL} from '@env'
+import {BASE_URL} from '../../env'
 
 const LoginScreen = ({ onLoginSuccess }) => {
   const navigation = useNavigation();
@@ -11,13 +11,12 @@ const LoginScreen = ({ onLoginSuccess }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log(API_BASE_URL)
     const userData = {
       name: name,
       password: password,
     };
   
-    fetch(`https://5b6b-2409-4080-1096-b548-98c9-6638-7728-7a7.ngrok-free.app/login`, {
+    fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

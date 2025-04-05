@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import axios from 'axios';
-import {API_BASE_URL} from '@env'
+import {BASE_URL} from '../../env'
 
 const FabricInfo = ({ route }) => {
   const [barcodeData, setBarcodeData] = useState(null); // Changed to null since we are expecting a single object
   const { data } = route.params; // The barcode data
 
   useEffect(() => {
-    console.log(API_BASE_URL)
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://5b6b-2409-4080-1096-b548-98c9-6638-7728-7a7.ngrok-free.app/api/barcode-data/${data}`);
+        const response = await axios.get(`${BASE_URL}/api/barcode-data/${data}`);
           
         if (response.status === 200 && response.data) {
           setBarcodeData(response.data);

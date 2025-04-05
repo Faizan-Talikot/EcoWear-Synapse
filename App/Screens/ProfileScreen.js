@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
-import {API_BASE_URL} from '@env'
+import {BASE_URL} from '../../env'
 function ProfileScreen({onLogoutSuccess}) {
   const navigation = useNavigation();
   const [userData, setUserData] = useState('');
@@ -29,10 +29,9 @@ function ProfileScreen({onLogoutSuccess}) {
   }
 
   useEffect(() => {
-    console.log(API_BASE_URL)
     const fetchData = async () => {
       const token = await AsyncStorage.getItem('token');
-      fetch(`https://5b6b-2409-4080-1096-b548-98c9-6638-7728-7a7.ngrok-free.app/userdata`, {
+      fetch(`${BASE_URL}/userdata`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
