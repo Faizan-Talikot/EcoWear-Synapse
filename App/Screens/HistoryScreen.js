@@ -108,9 +108,6 @@ const HistoryScreen = () => {
               <Text style={styles.label}>Type:</Text>
               <Text style={styles.value}>{item.type}</Text>
 
-              <Text style={styles.label}>Brand:</Text>
-              <Text style={styles.value}>{item.brand}</Text>
-
               <Text style={styles.label}>Score:</Text>
               <Text style={[styles.value, styles.scoreValue(item.score)]}>{item.score}</Text>
 
@@ -118,7 +115,6 @@ const HistoryScreen = () => {
               <Text style={[styles.value, { color: item.ecoFriendly ? '#388e3c' : '#d32f2f' }]}>
                 {item.ecoFriendly ? 'Yes' : 'No'}
               </Text>
-
               <Text style={styles.label}>Scanned At:</Text>
               <Text style={styles.value}>
                 {new Date(item.date || item.scannedAt).toLocaleString()}
