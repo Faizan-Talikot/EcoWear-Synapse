@@ -20,6 +20,7 @@ import SearchScreen from './App/Screens/SearchScreen';
 import LoginScreen from './App/Screens/LogIn';
 import Register from './App/Screens/Register';
 import FabricInfo from './App/Screens/FabricInfo';
+import JeansPage from './App/Screens/JeansPage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -128,6 +129,23 @@ export default function App() {
             {() => <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />}
           </Stack.Screen>
         )}
+        
+        {/* Add Jeans Page to the Stack Navigator */}
+        <Stack.Screen
+          name="Jeans"
+          component={JeansPage}
+          options={{
+            headerTitle: 'Jeans',
+            headerTintColor: '#fff',
+            headerBackground: () => (
+              <LinearGradient
+                colors={['#34443D', '#67775E']}
+                style={StyleSheet.absoluteFillObject}
+              />
+            ),
+          }}
+        />
+
         <Stack.Screen
           name="Register"
           component={Register}

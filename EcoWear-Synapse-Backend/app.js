@@ -5,6 +5,8 @@ app.use(cors());
 const mongoose = require("mongoose");
 app.use(express.json());
 const jwt = require('jsonwebtoken')
+app.use(express.json());
+app.use(require('cors')());
 
 const mongoUrl = "mongodb+srv://sankalpsingh563:admin@cluster0.fxw83.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const JWT_SECRET = "SECRETKEY"
@@ -177,7 +179,153 @@ app.post('/clear-history', async (req, res) => {
   }
 });
 
+const jeansData = [
+  {
+    id: "1",
+    name: "Slim Fit Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "High-quality slim-fit jeans for everyday wear. Perfect for casual outings or a day at the office.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205601_jgkqtf",
+  },
+  {
+    id: "2",
+    name: "High Waist Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Comfortable and trendy high-waist jeans. Ideal for pairing with tucked-in shirts and blouses.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205428_bzrhrq",
+  },
+  {
+    id: "3",
+    name: "Bootcut Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Classic bootcut jeans with a slight flare at the bottom. Perfect for a more relaxed fit.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205516_cixp2h",
+  },
+  {
+    id: "4",
+    name: "Distressed Denim Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Fashion-forward distressed denim with a relaxed fit. Adds an edge to your casual look.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205542_m1hymn",
+  },
+  {
+    id: "5",
+    name: "Skinny Fit Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Sleek and comfortable skinny jeans with just the right amount of stretch for all-day wear.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205642_jtya8a",
+  },
+  {
+    id: "6",
+    name: "Relaxed Fit Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Casual and comfortable relaxed-fit jeans that provide ample room for movement.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205404_kdlqfb",
+  },
+  {
+    id: "7",
+    name: "Boyfriend Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Loose and comfy boyfriend jeans with a cuffed hem for a laid-back, stylish vibe.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205229_kmzgtf",
+  },
+  {
+    id: "8",
+    name: "Straight Leg Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Timeless straight-leg jeans with a clean fit. Perfect for any casual or semi-formal occasion.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205441_pznjx9",
+  },
+  {
+    id: "9",
+    name: "Wide Leg Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Trendy wide-leg jeans with a flattering silhouette. A must-have for relaxed, casual days.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205345_jfsigk",
+  },
+  {
+    id: "10",
+    name: "Cargo Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200, // Random price between 1200 and 3000
+    description: "Durable cargo jeans with multiple pockets for added functionality and style.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+  },
+  {
+    id: "11",
+    name: "Bootcut Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Classic bootcut jeans offering a comfortable fit with a slightly flared leg.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205601_jgkqtf",
+  },
+  {
+    id: "12",
+    name: "Straight Leg Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Timeless straight leg jeans that provide a sleek and relaxed fit.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205428_bzrhrq",
+  },
+  {
+    id: "13",
+    name: "Distressed Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Edgy distressed jeans with rips and frays for a bold streetwear look.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205516_cixp2h",
+  },
+  {
+    id: "14",
+    name: "Skinny Fit Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Sleek skinny fit jeans with a snug fit through the leg for a modern style.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205542_m1hymn",
+  },
+  {
+    id: "15",
+    name: "Slim Fit Stretch Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Stretchy slim fit jeans that offer both comfort and style.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205642_jtya8a",
+  },
+  {
+    id: "16",
+    name: "Relaxed Fit Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Relaxed fit jeans with extra room through the hips and thighs for ultimate comfort.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205404_kdlqfb",
+  },
+  {
+    id: "17",
+    name: "High Rise Skinny Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "High-rise skinny jeans designed to elongate the legs and accentuate curves.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205229_kmzgtf",
+  },
+  {
+    id: "18",
+    name: "Vintage Wash Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Retro-inspired vintage wash jeans with a worn-in, lived-in look.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205441_pznjx9",
+  },
+  {
+    id: "19",
+    name: "Slim Bootcut Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Slim bootcut jeans that combine a contemporary fit with classic styling.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205345_jfsigk",
+  },
+  {
+    id: "20",
+    name: "Cargo Jogger Jeans",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Casual cargo jogger jeans with an elastic cuff and multiple utility pockets.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+  },
+];
 
+
+app.get("/api/jeans", (req, res) => {
+  res.json(jeansData); // Return jeans data
+});
 
 app.listen(5001, () => {
   console.log("Node js server started.");

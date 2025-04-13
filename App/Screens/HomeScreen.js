@@ -29,22 +29,29 @@ const products = [
 
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        {/* Scrollable Content */}
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-
-          {/* Categories */}
-          <View style={styles.categories}>
-            {categories.map((category, index) => (
-              <TouchableOpacity key={index} style={styles.categoryCircle}>
-                <LinearGradient colors={['#34443D', '#67775E']} style={styles.categoryCircle}>
-                <Image source={category.image} style={styles.categoryImage} />
-                <Text style={styles.categoryText}>{category.name}</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            ))}
-          </View>
+        <SafeAreaView style={styles.safeArea}>
+          <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+    
+              {/* Categories */}
+              <View style={styles.categories}>
+                {categories.map((category, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.categoryCircle}
+                    onPress={() => {
+                      if (category.name === 'Jeans') {
+                        navigation.navigate('Jeans'); // Navigate to the Jeans page
+                      }
+                    }}
+                  >
+                    <LinearGradient colors={['#34443D', '#67775E']} style={styles.categoryCircle}>
+                      <Image source={category.image} style={styles.categoryImage} />
+                      <Text style={styles.categoryText}>{category.name}</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                ))}
+              </View>
 
           {/* Banner */}
           <LinearGradient colors={['#34443D', '#67775E']} style={styles.banner}>

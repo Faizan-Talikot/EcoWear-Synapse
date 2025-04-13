@@ -20,7 +20,7 @@ const dummyProducts = [
   },
   {
     id: '2',
-    name: 'Recycled Jeans',
+    name: 'Recycled Jacket',
     brand: 'GreenDenim',
     price: 1499,
     score: 88,
@@ -29,7 +29,7 @@ const dummyProducts = [
   },
   {
     id: '3',
-    name: 'Sustainable Hoodie',
+    name: 'Sustainable dress Black',
     brand: 'EarthStyle',
     price: 1899,
     score: 90,
@@ -38,7 +38,7 @@ const dummyProducts = [
   },
   {
     id: '4',
-    name: 'Bamboo Sunglasses',
+    name: 'Bamboo Dress',
     brand: 'NatureShades',
     price: 999,
     score: 85,
@@ -46,26 +46,53 @@ const dummyProducts = [
     imageUrl: require('../Assets/pro5.webp'),
   },
   {
-    id: '5',
-    name: 'Eco Canvas Tote',
-    brand: 'GreenGoods',
-    price: 499,
-    score: 89,
-    isPaid: false,
-    imageUrl: 'https://images.unsplash.com/photo-1618354691319-980746940869',
-  },
+  id: '5',
+  name: 'Organic Cotton T-Shirt',
+  brand: 'EcoWear',
+  price: 799,
+  score: 92,
+  isPaid: true,
+  imageUrl: require('../Assets/pro1.webp'),
+},
+{
+  id: '6',
+  name: 'Recycled Jacket',
+  brand: 'GreenDenim',
+  price: 1499,
+  score: 88,
+  isPaid: false,
+  imageUrl: require('../Assets/pro3.webp'),
+},
+{
+  id: '7',
+  name: 'Sustainable dress Black',
+  brand: 'EarthStyle',
+  price: 1899,
+  score: 90,
+  isPaid: true,
+  imageUrl: require('../Assets/pro4.webp'),
+},
+{
+  id: '8',
+  name: 'Bamboo Dress',
+  brand: 'NatureShades',
+  price: 999,
+  score: 85,
+  isPaid: false,
+  imageUrl: require('../Assets/pro5.webp'),
+},
 ];
 
 const sortedProducts = [
-  ...dummyProducts.filter(p => p.isPaid),
-  ...dummyProducts.filter(p => !p.isPaid),
+  ...dummyProducts.filter((p) => p.isPaid),
+  ...dummyProducts.filter((p) => !p.isPaid),
 ];
 
 const CatalogScreen = () => {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       {item.isPaid && <Text style={styles.adTag}>Ad</Text>}
-      <Image source={item.imageUrl } style={styles.image} />
+      <Image source={item.imageUrl} style={styles.image} />
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.brand}>{item.brand}</Text>
       <Text style={styles.price}>₹{item.price}</Text>
@@ -73,7 +100,7 @@ const CatalogScreen = () => {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>View</Text>
       </TouchableOpacity>
-    </View>
+    </View>    
   );
 
   return (
@@ -81,8 +108,26 @@ const CatalogScreen = () => {
       <Text style={styles.header}>Eco-Friendly Products</Text>
       <FlatList
         data={sortedProducts}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => {
+          // Render two items per row
+          if (index % 2 === 0 && index < sortedProducts.length - 1) {
+            return (
+              <View style={styles.rowContainer}>
+                {renderItem({ item })}
+                {renderItem({ item: sortedProducts[index + 1] })}
+              </View>
+            );
+          } else if (index % 2 === 0 && index === sortedProducts.length - 1) {
+            return (
+              <View style={styles.rowContainer}>
+                {renderItem({ item })}
+              </View>
+            );
+          } else {
+            return null;
+          }
+        }}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
       />
@@ -107,6 +152,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 20,
   },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
   card: {
     backgroundColor: '#fff',
     borderRadius: 16,
@@ -116,7 +166,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 3,
-    position: 'relative',
+    width: '48%', // Makes two cards fit side by side
   },
   adTag: {
     position: 'absolute',
@@ -133,13 +183,12 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 400,
+    height: 150,
     resizeMode: 'cover',
     borderRadius: 12,
     marginBottom: 10,
     overflow: 'hidden',
   },
-  
   name: {
     fontSize: 18,
     fontWeight: '600',
