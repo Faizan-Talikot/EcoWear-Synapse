@@ -43,6 +43,9 @@ const products = [
                       if (category.name === 'Jeans') {
                         navigation.navigate('Jeans'); // Navigate to the Jeans page
                       }
+                      else if (category.name === 'Shirts'){
+                        navigation.navigate('Shirts');
+                      }
                     }}
                   >
                     <LinearGradient colors={['#34443D', '#67775E']} style={styles.categoryCircle}>
@@ -52,6 +55,7 @@ const products = [
                   </TouchableOpacity>
                 ))}
               </View>
+              
 
           {/* Banner */}
           <LinearGradient colors={['#34443D', '#67775E']} style={styles.banner}>

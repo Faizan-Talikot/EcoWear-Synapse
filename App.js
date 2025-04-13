@@ -21,7 +21,7 @@ import LoginScreen from './App/Screens/LogIn';
 import Register from './App/Screens/Register';
 import FabricInfo from './App/Screens/FabricInfo';
 import JeansPage from './App/Screens/JeansPage';
-
+import ShirtsPage from './App/Screens/ShirtsPage';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -136,6 +136,20 @@ export default function App() {
           component={JeansPage}
           options={{
             headerTitle: 'Jeans',
+            headerTintColor: '#fff',
+            headerBackground: () => (
+              <LinearGradient
+                colors={['#34443D', '#67775E']}
+                style={StyleSheet.absoluteFillObject}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Shirts"
+          component={ShirtsPage}
+          options={{
+            headerTitle: 'Shirts',
             headerTintColor: '#fff',
             headerBackground: () => (
               <LinearGradient

@@ -327,6 +327,168 @@ app.get("/api/jeans", (req, res) => {
   res.json(jeansData); // Return jeans data
 });
 
+const shirtsData = [
+  {
+    id: "1",
+    name: "Classic White Shirt",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "A timeless white shirt for every occasion.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+  },
+  {
+    id: "2",
+    name: "Denim Shirt",
+    price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+    description: "Rugged denim shirt with a comfortable fit.",
+    imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+  },
+    {
+      id: "3",
+      name: "Classic Oxford Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Timeless Oxford shirt perfect for formal and casual wear.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "4",
+      name: "Linen Breeze Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Lightweight linen shirt ideal for summer days.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "5",
+      name: "Slim Fit Formal Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Sharp slim-fit shirt for office and events.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "6",
+      name: "Flannel Checked Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Soft flannel shirt with a bold checkered pattern.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "7",
+      name: "Mandarin Collar Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Trendy Mandarin collar design for a modern touch.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "8",
+      name: "Short Sleeve Casual Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Easygoing short sleeve shirt for everyday wear.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "9",
+      name: "Vertical Striped Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Stylish vertical stripes for a sleek silhouette.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "10",
+      name: "Corduroy Button-Up",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Soft corduroy fabric adds texture and style.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "11",
+      name: "Printed Resort Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Relaxed shirt with tropical vibes and prints.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "12",
+      name: "Classic Plaid Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Casual plaid shirt made for layering or solo wear.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "13",
+      name: "Sustainable Bamboo Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Eco-conscious shirt crafted from bamboo fiber.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "14",
+      name: "Minimalist White Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Crisp white shirt with a clean minimalist look.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "15",
+      name: "Earth-Tone Khaki Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Khaki colorway perfect for nature-inspired outfits.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "16",
+      name: "Dual Pocket Utility Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Functional and fashionable with dual chest pockets.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "17",
+      name: "Oversized Street Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Loose fit for that trendy streetwear aesthetic.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "18",
+      name: "Mandala Print Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Intricate mandala patterns bring spiritual flair.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "19",
+      name: "Vintage Washed Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Vintage washed finish gives it a retro feel.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "20",
+      name: "Henley Long Sleeve Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Versatile Henley with a soft, lived-in feel.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "21",
+      name: "EcoBlend Everyday Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Everyday shirt made from a sustainable fabric blend.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    },
+    {
+      id: "22",
+      name: "Chambray Blue Shirt",
+      price: Math.floor(Math.random() * (3000 - 1200 + 1)) + 1200,
+      description: "Soft chambray fabric in a breezy blue shade.",
+      imageUrl: "https://res.cloudinary.com/dpaws88pp/image/upload/v12345678/Screenshot_2025-04-11_205322_ud8dck",
+    }
+  ]
+  ;
+
+app.get("/api/shirts", (req, res) => {
+  res.json(shirtsData);
+});
+
 app.listen(5001, () => {
   console.log("Node js server started.");
 });
