@@ -9,10 +9,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { BASE_URL } from "../../env";
+import { useNavigation } from '@react-navigation/native';
 
 const ShirtsPage = () => {
   const [shirts, setShirts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchShirts = async () => {
@@ -35,11 +37,15 @@ const ShirtsPage = () => {
       {item.isPaid && <Text style={styles.adTag}>Ad</Text>}
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
       <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.description}>{item.description}</Text>
+      {/* <Text style={styles.description}>{item.description}</Text> */}
       <Text style={styles.price}>₹{item.price}</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>View</Text>
-      </TouchableOpacity>
+      <Text style={styles.score}>Eco Score: {item.score}</Text>
+      <TouchableOpacity
+  style={styles.button}
+  onPress={() => navigation.navigate('ItemDetail', { itemId: item.id, category: item.category })}
+>
+  <Text style={styles.buttonText}>View</Text>
+</TouchableOpacity>
     </View>
   );
 
@@ -156,6 +162,13 @@ const styles = StyleSheet.create({
     color: "#1a8c37",
     marginTop: 4,
     textAlign: "left",
+    alignSelf: "flex-start",
+  },
+  score: {
+    fontSize: 14,
+    color: '#228B22',
+    fontWeight: '500',
+    textAlign:"left",
     alignSelf: "flex-start",
   },
   button: {

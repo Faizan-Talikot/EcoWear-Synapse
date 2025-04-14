@@ -8,6 +8,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BlogDetailsScreen from './App/Screens/BlogDetailsScreen';
+import ItemDetailScreen from './App/Screens/ItemDetailScreen';
+
 
 // Import screens
 import HomeScreen from './App/Screens/HomeScreen';
@@ -211,6 +213,11 @@ export default function App() {
   name="BlogDetails"
   component={BlogDetailsScreen}
   options={{ title: 'Blog Details' }}
+/>
+<Stack.Screen
+  name="ItemDetail"
+  component={ItemDetailScreen}
+  options={{ title: 'Item Details' }}
 />
       </Stack.Navigator>
     </NavigationContainer>

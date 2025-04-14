@@ -64,19 +64,20 @@ const scanHistorySchema = new mongoose.Schema({
 
 const ScanHistory = mongoose.model('ScanHistory', scanHistorySchema);
 
-
-const jeansSchema = new mongoose.Schema({
+const itemSchema = new mongoose.Schema({
   id: Number,
   name: String,
   brand: String,
   isPaid: Boolean,
   score: Number,
   price: Number,
+  category: String, // "jeans", "shirt", etc.
   description: String,
   imageUrl: String,
 });
 
-const JeansData = mongoose.model("JeansDatas", jeansSchema, "JeansDatas");
+const ItemData = mongoose.model("ItemDatas", itemSchema, "ItemDatas");
+
 
 
 const ShirtSchema = new mongoose.Schema({
@@ -415,17 +416,38 @@ app.post('/clear-history', async (req, res) => {
 // ]
 
 
-
-app.get("/jeans",async (req, res) => {
+app.get("/jeans", async (req, res) => {
   try {
-    // Fetch data from MongoDB
-    const jeansData = await JeansData.find();
-    res.json(jeansData); // Return jeans data
+    const jeansData = await ItemData.find({ category: "jeans" });
+    res.json(jeansData);
   } catch (error) {
     console.error("Error fetching jeans data", error);
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+// GET /items/:id - Get single item by ID
+// Assuming you're using an Express route
+app.get("/:category/:id", async (req, res) => {
+  try {
+    const { category, id } = req.params;
+    
+    // Fetch item by category and id
+    const item = await ItemData.findOne({ category: category, id: id }); // Ensure `category` field is in your schema
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    res.json(item);
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 // const shirtsData = [
 //   {
@@ -650,17 +672,80 @@ app.get("/jeans",async (req, res) => {
 //   }
 // ];
 
-
-app.get("/shirts", async(req, res) => {
+app.get("/shirts", async (req, res) => {
   try {
-    // Fetch data from MongoDB
-    const Shirt = await ShirtData.find();
-    res.json(Shirt); // Return jeans data
+    // Fetch shirt data from the unified model with category "shirt"
+    const shirtData = await ItemData.find({ category: "shirt" });
+    res.json(shirtData); // Return shirt data
   } catch (error) {
-    console.error("Error fetching jeans data", error);
+    console.error("Error fetching shirt data", error);
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+const questionSchema = new mongoose.Schema({
+  name: String,
+  question: String,
+  itemId: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const Question = mongoose.model('Question', questionSchema);
+
+
+
+// Example Express.js
+app.post('/questions', async (req, res) => {
+  const { name, question, itemId } = req.body;
+  if (!name || !question || !itemId) return res.status(400).send("Missing fields");
+
+  // Save in DB (MongoDB, Firebase, etc.)
+  const newQuestion = await Question.create({ name, question, itemId, createdAt: new Date() });
+  res.status(201).json({ success: true, message: "Question submitted", data: newQuestion });
+});
+
+
+
+const reviewSchema = new mongoose.Schema({
+  itemId: { type: String, required: true },       // Which product
+  userName: { type: String, required: true },
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  comment: { type: String },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Review = mongoose.model('Review', reviewSchema);
+
+// POST: Add a new review
+app.post('/reviews', async (req, res) => {
+  try {
+    const { itemId, userName, rating, comment } = req.body;
+
+    if (!itemId || !userName || !rating) {
+      return res.status(400).json({ error: 'Missing fields' });
+    }
+
+    const review = await Review.create({ itemId, userName, rating, comment });
+    res.status(201).json({ success: true, message: 'Review added', data: review });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// GET: Get all reviews for an item
+app.get('/:itemId', async (req, res) => {
+  try {
+    const reviews = await Review.find({ itemId: req.params.itemId }).sort({ createdAt: -1 });
+    res.status(200).json(reviews);
+  } catch (err) {
+    res.status(500).json({ error: 'Error fetching reviews' });
+  }
+});
+
 
 app.listen(5001, () => {
   console.log("Node js server started.");

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
 import { BASE_URL } from '../../env';
+import { useNavigation } from '@react-navigation/native';
+
 
 const JeansPage = () => {
   const [jeans, setJeans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchJeans = async () => {
@@ -38,9 +41,12 @@ const JeansPage = () => {
       <Text style={styles.brand}>{item.brand}</Text>
       <Text style={styles.price}>₹{item.price}</Text>
       <Text style={styles.score}>Eco Score: {item.score}</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>View</Text>
-      </TouchableOpacity>
+      <TouchableOpacity
+  style={styles.button}
+  onPress={() => navigation.navigate('ItemDetail', { itemId: item.id, category: item.category })}
+>
+  <Text style={styles.buttonText}>View</Text>
+</TouchableOpacity>
     </View>
   );
 
