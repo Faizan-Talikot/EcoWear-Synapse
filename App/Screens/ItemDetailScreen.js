@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'; // For the heart ico
 import faqs from '../../Components/faq';
 import { LayoutAnimation, UIManager, Platform } from 'react-native';
 import ReviewSection from '../../Components/ReviewSection';
+import { Heart } from 'react-native-feather';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -92,7 +93,9 @@ const ItemDetailScreen = () => {
               <Text style={styles.name}>{item.name}</Text>
               {/* Heart icon */}
               <TouchableOpacity style={styles.likeButton}>
-                <Icon name="favorite-border" size={32} color="#E91E63" />
+                {/* <Icon name="favorite-border" size={32} color="#E91E63" /> */}
+                <Heart width={32} height={32} stroke="#E91E63" fill="none" />
+                {/* <FontAwesomeIcon icon="fa-regular fa-heart" /> */}
               </TouchableOpacity>
             </View>
             <Text style={styles.brand}>{item.brand}</Text>
@@ -270,7 +273,7 @@ const styles = StyleSheet.create({
   },
   likeButton: {
     paddingLeft: 0,
-    marginRight: 2,
+    marginRight: 6,
   },
   faqContainer: {
     marginTop: 30,

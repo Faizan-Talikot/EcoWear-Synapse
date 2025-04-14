@@ -8,6 +8,11 @@ const jwt = require('jsonwebtoken')
 app.use(express.json());
 app.use(require('cors')());
 
+// app.use((req, res, next) => {
+//   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+//   next();
+// });
+
 const mongoUrl = "mongodb+srv://sankalpsingh563:admin@cluster0.fxw83.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const JWT_SECRET = "SECRETKEY"
 mongoose
@@ -736,15 +741,49 @@ app.post('/reviews', async (req, res) => {
   }
 });
 
+
+// Search API
+app.get('/search', async (req, res) => {
+  // console.log('Search endpoint called with req.query:', req.query);
+  try {
+    const query = req.query.q?.toLowerCase() || '';
+    // console.log('Processed query:', query);
+
+    if (!query) {
+      // console.log('No query provided, returning empty array');
+      return res.json([]);
+    }
+
+    const filtered = await ItemData.find({
+      $or: [
+        { name: { $regex: query, $options: 'i' } },
+        { brand: { $regex: query, $options: 'i' } },
+        { category: { $regex: query, $options: 'i' } },
+      ],
+    });
+    // console.log('Search results:', filtered);
+    res.json(filtered);
+  } catch (error) {
+    // console.error('Search error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // GET: Get all reviews for an item
 app.get('/:itemId', async (req, res) => {
   try {
+    console.log("item called")
     const reviews = await Review.find({ itemId: req.params.itemId }).sort({ createdAt: -1 });
     res.status(200).json(reviews);
   } catch (err) {
     res.status(500).json({ error: 'Error fetching reviews' });
   }
 });
+
+
+
+
+
 
 
 app.listen(5001, () => {
