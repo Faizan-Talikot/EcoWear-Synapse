@@ -423,7 +423,7 @@ app.post('/clear-history', async (req, res) => {
 
 app.get("/jeans", async (req, res) => {
   try {
-    const jeansData = await ItemData.find({ category: "jeans" });
+    const jeansData = await ItemData.find({ category: "jeans" }).sort({ isPaid: -1 });
     res.json(jeansData);
   } catch (error) {
     console.error("Error fetching jeans data", error);
@@ -679,14 +679,27 @@ app.get("/:category/:id", async (req, res) => {
 
 app.get("/shirts", async (req, res) => {
   try {
-    // Fetch shirt data from the unified model with category "shirt"
-    const shirtData = await ItemData.find({ category: "shirt" });
-    res.json(shirtData); // Return shirt data
+    // Fetch shirt data with category "shirt", sorted by isPaid (paid first)
+    const shirtData = await ItemData.find({ category: "shirt" }).sort({ isPaid: -1 });
+    res.json(shirtData); // Return sorted shirt data
   } catch (error) {
     console.error("Error fetching shirt data", error);
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// Get All Items for Catalog
+app.get("/items", async (req, res) => {
+  try {
+    const items = await ItemData.find().sort({ isPaid: -1 }); // Paid first
+    res.json(items);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 
 const questionSchema = new mongoose.Schema({
