@@ -12,7 +12,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const categories = [
     { name: 'Shirts', image: require('../Assets/polo-shirt.png') },
-    { name: 'T-shirts', image: require('../Assets/t-shirt.png') },
+    { name: 'Tshirts', image: require('../Assets/t-shirt.png') },
     { name: 'Jeans', image: require('../Assets/trousers.png') },
     { name: 'Hoodies', image: require('../Assets/hoodie.png') },
     { name: 'Dresses', image: require('../Assets/dress.png') },
@@ -45,6 +45,15 @@ const products = [
                       }
                       else if (category.name === 'Shirts'){
                         navigation.navigate('Shirts');
+                      }
+                      else if (category.name === 'Tshirts'){
+                        navigation.navigate('Tshirts');
+                      }
+                      else if (category.name === 'Hoodies'){
+                        navigation.navigate('Hoodies');
+                      }
+                      else if (category.name === 'Dresses'){
+                        navigation.navigate('Dresses');
                       }
                     }}
                   >
