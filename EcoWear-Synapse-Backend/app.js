@@ -431,6 +431,36 @@ app.get("/jeans", async (req, res) => {
   }
 });
 
+app.get("/tshirts", async (req, res) => {
+  try {
+    const tshirtData = await ItemData.find({ category: "tshirt" }).sort({ isPaid: -1 });
+    res.json(tshirtData);
+  } catch (error) {
+    console.error("Error fetching tshirt data", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.get("/hoodies", async (req, res) => {
+  try {
+    const hoodieData = await ItemData.find({ category: "hoodie" }).sort({ isPaid: -1 });
+    res.json(hoodieData);
+  } catch (error) {
+    console.error("Error fetching hoodie data", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.get("/dresses", async (req, res) => {
+  try {
+    const dressData = await ItemData.find({ category: "dress" }).sort({ isPaid: -1 });
+    res.json(dressData);
+  } catch (error) {
+    console.error("Error fetching dress data", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 // GET /items/:id - Get single item by ID
 // Assuming you're using an Express route

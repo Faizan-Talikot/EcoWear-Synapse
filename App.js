@@ -24,6 +24,9 @@ import Register from './App/Screens/Register';
 import FabricInfo from './App/Screens/FabricInfo';
 import JeansPage from './App/Screens/JeansPage';
 import ShirtsPage from './App/Screens/ShirtsPage';
+import TShirtsPage from './App/Screens/TShirtsPage';
+import HoodiesPage from './App/Screens/HoodiesPage';
+import DressesPage from './App/Screens/DressesPage'
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -161,6 +164,49 @@ export default function App() {
             ),
           }}
         />
+        <Stack.Screen
+          name="TShirts"
+          component={TShirtsPage}
+          options={{
+            headerTitle: 'TShirts',
+            headerTintColor: '#fff',
+            headerBackground: () => (
+              <LinearGradient
+                colors={['#34443D', '#67775E']}
+                style={StyleSheet.absoluteFillObject}
+              />
+            ),
+          }}
+        />
+<Stack.Screen
+  name="Hoodies"
+  component={HoodiesPage}
+  options={{
+    headerTitle: 'Hoodies',
+    headerTintColor: '#fff',
+    headerBackground: () => (
+      <LinearGradient
+        colors={['#34443D', '#67775E']}
+        style={StyleSheet.absoluteFillObject}
+      />
+    ),
+  }}
+/>
+
+<Stack.Screen
+  name="Dresses"
+  component={DressesPage}
+  options={{
+    headerTitle: 'Dresses',
+    headerTintColor: '#fff',
+    headerBackground: () => (
+      <LinearGradient
+        colors={['#34443D', '#67775E']}
+        style={StyleSheet.absoluteFillObject}
+      />
+    ),
+  }}
+/>
 
         <Stack.Screen
           name="Register"
