@@ -1,42 +1,43 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
-import { BASE_URL } from "../../env";
+import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
+import { BASE_URL } from '../../env';
 import { useNavigation } from '@react-navigation/native';
 
-const TshirtsPage = () => {
-  const [tshirts, setTshirts] = useState([]);
+const TShirtsPage = () => {
+  const [shirts, setShirts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const fetchTshirts = async () => {
+    const fetchShirts = async () => {
       try {
         const response = await fetch(`${BASE_URL}/tshirts`);
         const data = await response.json();
-        setTshirts(data);
+        setShirts(data);
       } catch (error) {
-        console.error("Error fetching tshirts:", error);
+        console.error("Error fetching shirts:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTshirts();
+    fetchShirts();
   }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       {item.isPaid && <Text style={styles.adTag}>Ad</Text>}
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
       <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.brand}>{item.brand}</Text>
       <Text style={styles.price}>₹{item.price}</Text>
       <Text style={styles.score}>Eco Score: {item.score}</Text>
       <TouchableOpacity
@@ -48,15 +49,16 @@ const TshirtsPage = () => {
     </View>
   );
 
+  // Convert into rows of 2 items (like in CatalogScreen and JeansPage)
   const renderRow = ({ item, index }) => {
-    if (index % 2 === 0 && index < tshirts.length - 1) {
+    if (index % 2 === 0 && index < shirts.length - 1) {
       return (
         <View style={styles.rowContainer}>
           {renderItem({ item })}
-          {renderItem({ item: tshirts[index + 1] })}
+          {renderItem({ item: shirts[index + 1] })}
         </View>
       );
-    } else if (index % 2 === 0 && index === tshirts.length - 1) {
+    } else if (index % 2 === 0 && index === shirts.length - 1) {
       return (
         <View style={styles.rowContainer}>
           {renderItem({ item })}
@@ -66,20 +68,12 @@ const TshirtsPage = () => {
     return null;
   };
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Our T-shirt Collection</Text>
+      <Text style={styles.header}>Our Shirts Collection</Text>
       <FlatList
-        data={tshirts}
-        keyExtractor={(item) => item.id.toString()}
+        data={shirts}
+        keyExtractor={(item) => item.id}
         renderItem={renderRow}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
@@ -106,28 +100,28 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   rowContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 16,
   },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    marginBottom: 16,
     padding: 16,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowRadius: 5,
+    shadowRadius: 10,
     elevation: 3,
-    alignItems: "center",
-    width: "48%",
+    width: '48%',
   },
   adTag: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: "#FFD700",
-    color: "#333",
-    fontWeight: "bold",
+    backgroundColor: '#FFD700',
+    color: '#333',
+    fontWeight: 'bold',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
@@ -135,50 +129,45 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: 150,
-    resizeMode: "cover",
-    borderRadius: 8,
+    resizeMode: 'cover',
+    borderRadius: 12,
     marginBottom: 10,
+    overflow: 'hidden',
   },
   name: {
     fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 5,
-    color: "#333",
-    textAlign: "left",
-    alignSelf: "flex-start",
+    fontWeight: '600',
+    color: '#333',
+  },
+  brand: {
+    fontSize: 14,
+    color: '#777',
+    marginBottom: 4,
   },
   price: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#1a8c37",
-    marginTop: 4,
-    textAlign: "left",
-    alignSelf: "flex-start",
+    fontWeight: 'bold',
+    color: '#1a8c37',
+    marginBottom: 4,
   },
   score: {
     fontSize: 14,
     color: '#228B22',
     fontWeight: '500',
-    textAlign: "left",
-    alignSelf: "flex-start",
-    padding: 7,
   },
   button: {
     marginTop: 10,
-    backgroundColor: "#228B22",
+    backgroundColor: '#228B22',
     paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    alignSelf: "flex-start",
-    width: "100%"
+    borderRadius: 10,
+    alignItems: 'center',
   },
   buttonText: {
-    color: "#fff",
-    fontWeight: "600",
-    textAlign: "center",
+    color: '#fff',
+    fontWeight: '600',
   },
 });
 
-export default TshirtsPage;
+export default TShirtsPage;
