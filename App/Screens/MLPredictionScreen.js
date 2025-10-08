@@ -77,8 +77,8 @@ const MLPredictionScreen = ({ navigation }) => {
   const makePrediction = async () => {
     setLoading(true);
     try {
-      // Replace with your ML backend URL when deployed
-      const mlApiUrl = 'https://your-ml-backend.onrender.com/predict'; // We'll update this later
+      // ML backend URL - update this with your actual Render URL
+      const mlApiUrl = 'https://ecowear-ml-backend.onrender.com/predict';
       
       const response = await fetch(mlApiUrl, {
         method: 'POST',
