@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,10 +14,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["INTERNET"],
+      "permissions": [
+        "CAMERA",
+        "INTERNET"
+      ],
       "package": "com.faizan424.EcoWear"
     },
     "web": {
@@ -26,8 +27,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "402d0418-aedb-42a4-939b-1c14d8753e54"
+        "projectId": "0a8eb9c9-3d1a-46e8-863f-3066dd2a6041"
       }
-    }
+    },
+    "owner": "faizan424"
   }
 }

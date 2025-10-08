@@ -24,7 +24,7 @@ import Register from './App/Screens/Register';
 import FabricInfo from './App/Screens/FabricInfo';
 import JeansPage from './App/Screens/JeansPage';
 import ShirtsPage from './App/Screens/ShirtsPage';
-import TShirtsPage from './App/Screens/TShirtsPage';
+import TShirtsPage from './App/Screens/TshirtsPage';
 import HoodiesPage from './App/Screens/HoodiesPage';
 import DressesPage from './App/Screens/DressesPage'
 const Tab = createBottomTabNavigator();
