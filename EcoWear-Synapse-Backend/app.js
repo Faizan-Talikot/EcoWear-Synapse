@@ -428,6 +428,7 @@ app.get('/:itemId', async (req, res) => {
   }
 });
 
-app.listen(5001, () => {
-  console.log("Node js server started.");
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+  console.log(`Node js server started on port ${PORT}`);
 });
