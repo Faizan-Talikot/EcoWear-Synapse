@@ -13,15 +13,18 @@ app.use(require('cors')());
 //   next();
 // });
 
-const mongoUrl = process.env.MONGODB_URI || "mongodb+srv://sankalpsingh563:admin@cluster0.fxw83.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoUrl = "mongodb+srv://sankalpsingh563:admin@cluster0.fxw83.mongodb.net/EcoWear?retryWrites=true&w=majority";
 const JWT_SECRET = process.env.JWT_SECRET || "SECRETKEY"
 mongoose
-  .connect(mongoUrl)
+  .connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
-    console.log("Database Connected");
+    console.log("Database Connected Successfully");
   })
   .catch((e) => {
-    console.log(e);
+    console.log("Database Connection Error:", e);
   });
 
 require('./UserDetails');
