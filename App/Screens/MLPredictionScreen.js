@@ -78,7 +78,7 @@ const MLPredictionScreen = ({ navigation }) => {
     setLoading(true);
     try {
       // ML backend URL - update this with your actual Render URL
-      const mlApiUrl = 'https://ecowear-ml-backend.onrender.com/predict';
+      const mlApiUrl = 'https://ecowear-synapse-ml-backend.onrender.com/predict';
       
       const response = await fetch(mlApiUrl, {
         method: 'POST',
