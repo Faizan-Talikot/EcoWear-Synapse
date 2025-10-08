@@ -22,6 +22,7 @@ import SearchScreen from './App/Screens/SearchScreen';
 import LoginScreen from './App/Screens/LogIn';
 import Register from './App/Screens/Register';
 import FabricInfo from './App/Screens/FabricInfo';
+import MLPredictionScreen from './App/Screens/MLPredictionScreen';
 import JeansPage from './App/Screens/JeansPage';
 import ShirtsPage from './App/Screens/ShirtsPage';
 import TShirtsPage from './App/Screens/TshirtsPage';
@@ -264,6 +265,20 @@ export default function App() {
   name="ItemDetail"
   component={ItemDetailScreen}
   options={{ title: 'Item Details' }}
+/>
+<Stack.Screen
+  name="MLPrediction"
+  component={MLPredictionScreen}
+  options={{
+    headerTitle: '🤖 AI Prediction',
+    headerTintColor: '#fff',
+    headerBackground: () => (
+      <LinearGradient
+        colors={['#34443D', '#67775E']}
+        style={StyleSheet.absoluteFillObject}
+      />
+    ),
+  }}
 />
       </Stack.Navigator>
     </NavigationContainer>
