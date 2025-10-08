@@ -57,49 +57,43 @@ class PredictionResponse(BaseModel):
     confidence_score: float
     prediction_details: Dict[str, Any]
 
-def download_file(url: str, local_filename: str) -> str:
-    """Download file from URL to local path"""
-    try:
-        logger.info(f"Downloading {url} to {local_filename}")
-        response = requests.get(url, stream=True)
-        response.raise_for_status()
-        
-        with open(local_filename, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
-        
-        logger.info(f"Successfully downloaded {local_filename}")
-        return local_filename
-    except Exception as e:
-        logger.error(f"Error downloading {url}: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to download model file: {str(e)}")
+def get_model_path(filename: str) -> str:
+    """Get the correct path for model files"""
+    # Check if file exists in current directory
+    if os.path.exists(filename):
+        return filename
+    
+    # Check if file exists in parent directory (during development)
+    parent_path = os.path.join("..", filename)
+    if os.path.exists(parent_path):
+        return parent_path
+    
+    # If neither exists, raise an error
+    raise FileNotFoundError(f"Model file {filename} not found in current or parent directory")
 
 def load_model_and_columns():
     """Load the ML model and column structure"""
     global model, model_columns
     
     try:
-        # Local file paths (using the copied model files)
-        model_path = "eco_friendly_model.pkl"
-        columns_path = "model_columns.pkl"
-        
-        # Check if files exist locally
-        if not os.path.exists(model_path):
-            logger.error(f"Model file not found: {model_path}")
-            raise HTTPException(status_code=500, detail=f"Model file not found: {model_path}")
-        
-        if not os.path.exists(columns_path):
-            logger.error(f"Columns file not found: {columns_path}")
-            raise HTTPException(status_code=500, detail=f"Columns file not found: {columns_path}")
+        # Get model file paths
+        model_path = get_model_path("eco_friendly_model.pkl")
+        columns_path = get_model_path("model_columns.pkl")
         
         # Load model and columns
+        logger.info(f"Loading model from: {model_path}")
         model = joblib.load(model_path)
+        
+        logger.info(f"Loading columns from: {columns_path}")
         model_columns = joblib.load(columns_path)
         
         logger.info("Model and columns loaded successfully")
         logger.info(f"Model type: {type(model)}")
         logger.info(f"Number of expected features: {len(model_columns)}")
         
+    except FileNotFoundError as e:
+        logger.error(f"Model files not found: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Model files not found: {str(e)}")
     except Exception as e:
         logger.error(f"Error loading model: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to load model: {str(e)}")
