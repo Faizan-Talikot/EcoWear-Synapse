@@ -13,8 +13,8 @@ app.use(require('cors')());
 //   next();
 // });
 
-const mongoUrl = "mongodb+srv://sankalpsingh563:admin@cluster0.fxw83.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const JWT_SECRET = "SECRETKEY"
+const mongoUrl = process.env.MONGODB_URI || "mongodb+srv://sankalpsingh563:admin@cluster0.fxw83.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const JWT_SECRET = process.env.JWT_SECRET || "SECRETKEY"
 mongoose
   .connect(mongoUrl)
   .then(() => {
