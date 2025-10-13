@@ -11,36 +11,51 @@ const FabricInfo = ({ route }) => {
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!userData || !userData.email) {
-        return;
-      }
-    
+    const fetchBarcodeData = async () => {
       try {
+        console.log('Fetching barcode data for:', data);
         const response = await axios.get(`${BASE_URL}/api/barcode-data/${data}`);
     
         if (response.status === 200 && response.data) {
-          const fetchedData = response.data; // ✅ store in a variable
+          const fetchedData = response.data;
+          console.log('Barcode data received:', fetchedData);
           setBarcodeData(fetchedData);
-    
-          // ✅ Use the fetchedData directly instead of waiting for state update
-          await axios.post(`${BASE_URL}/add`, {
-            user: userData.email,
-            type: fetchedData.fabric,
-            barcode_id: fetchedData.barcode_id,
-            score: fetchedData.sustainability_score,
-            ecoFriendly: true
-          });
         } else {
           console.error('Error: Received invalid response data');
         }
       } catch (error) {
-        console.error('Error fetching the data', error.response || error.message);
+        console.error('Error fetching barcode data:', error.response || error.message);
       }
     };    
   
-    fetchData();
-  }, [data, userData]);
+    if (data) {
+      fetchBarcodeData();
+    }
+  }, [data]);
+
+  // Separate effect for adding scan history (only when both barcode data and user data are available)
+  useEffect(() => {
+    const addScanHistory = async () => {
+      if (!userData || !userData.email || !barcodeData) {
+        return;
+      }
+
+      try {
+        await axios.post(`${BASE_URL}/add`, {
+          user: userData.email,
+          type: barcodeData.fabric,
+          barcode_id: barcodeData.barcode_id,
+          score: barcodeData.sustainability_score,
+          ecoFriendly: true
+        });
+        console.log('Scan history added successfully');
+      } catch (error) {
+        console.error('Error adding scan history:', error.response || error.message);
+      }
+    };
+
+    addScanHistory();
+  }, [userData, barcodeData]);
   
 
   useEffect(() => {
